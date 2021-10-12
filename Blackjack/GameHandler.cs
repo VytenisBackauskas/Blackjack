@@ -21,16 +21,10 @@ namespace Blackjack
             this.dealer = new Dealer();
         }
 
-        public void PrintInfo(string user)
+        public void PrintInfo()
         {
-            if(user == "player")
-            {
-                player.PrintInfo();
-            }
-            else if(user == "dealer")
-            {
-                dealer.PrintInfo();
-            }
+            dealer.PrintInfo();
+            player.PrintInfo();
         }
 
         public void DrawCard(string user)
@@ -119,6 +113,11 @@ namespace Blackjack
             {
                 return false;
             }
+        }
+
+        public void RevealDealerCard()
+        {
+            this.dealer.RevealCard();
         }
     }
 }

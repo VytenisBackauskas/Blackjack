@@ -24,11 +24,14 @@ namespace Blackjack
                 gameHandler.CheckAce();
 
                 pointsHandler.PrintPlayingPoints();
-                gameHandler.PrintInfo("dealer");
-                gameHandler.PrintInfo("player");
+                gameHandler.PrintInfo();
 
                 if (gameHandler.CheckInitialGameState() != 3)
                 {
+                    Console.Clear();
+                    gameHandler.RevealDealerCard();
+                    pointsHandler.PrintPlayingPoints();
+                    gameHandler.PrintInfo();
                     gameHandler.PrintGameStateMessage(gameHandler.CheckInitialGameState());
                     pointsHandler.CountPoints(gameHandler.CheckInitialGameState());
                     Console.ReadLine();
@@ -54,11 +57,11 @@ namespace Blackjack
                                 pointsHandler.PrintPlayingPoints();
                                 gameHandler.DrawCard("player");
                                 gameHandler.CheckAce();
-                                gameHandler.PrintInfo("dealer");
-                                gameHandler.PrintInfo("player");
+                                gameHandler.PrintInfo();
                                 break;
                             case 2:
                                 Console.Clear();
+                                gameHandler.RevealDealerCard();
                                 pointsHandler.PrintPlayingPoints();
                                 while (gameHandler.CanDraw("dealer"))
                                 {
@@ -66,8 +69,7 @@ namespace Blackjack
                                     gameHandler.CheckAce();
                                 }
                                 loop = false;
-                                gameHandler.PrintInfo("dealer");
-                                gameHandler.PrintInfo("player");
+                                gameHandler.PrintInfo();
                                 break;
                             default:
                                 Console.Clear();
@@ -80,6 +82,7 @@ namespace Blackjack
                         if(gameHandler.CheckGameState() != 2)
                         {
                             Console.Clear();
+                            gameHandler.RevealDealerCard();
                             pointsHandler.PrintPlayingPoints();
                             while (gameHandler.CanDraw("dealer"))
                             {
@@ -87,11 +90,14 @@ namespace Blackjack
                                 gameHandler.CheckAce();
                             }
                             loop = false;
-                            gameHandler.PrintInfo("dealer");
-                            gameHandler.PrintInfo("player");
+                            gameHandler.PrintInfo();
                         }
                         else
                         {
+                            Console.Clear();
+                            gameHandler.RevealDealerCard();
+                            pointsHandler.PrintPlayingPoints();
+                            gameHandler.PrintInfo();
                             break;
                         }
                     }

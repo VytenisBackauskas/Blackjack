@@ -8,12 +8,14 @@ namespace Blackjack
 {
     class Dealer
     {
+        private CardDrawer cardDrawer;
         private List<char> cards;
-        int cardSum;
-        int aceUses;
+        private int cardSum;
+        private int aceUses;
 
         public Dealer()
         {
+            this.cardDrawer = new CardDrawer();
             this.cards = new List<char>();
             this.cardSum = 0;
             this.aceUses = 0;
@@ -22,11 +24,8 @@ namespace Blackjack
         public void PrintInfo()
         {
             Console.WriteLine("Dalintojo kortos: ");
-            foreach (char card in this.cards)
-            {
-                Console.Write("{0} ", card);
-            }
-            Console.WriteLine("- {0}", this.cardSum);
+            cardDrawer.PrintAllCardsDrawings();
+            Console.WriteLine("Dalintojo suma: {0}", this.cardSum);
         }
 
         public CardPack DrawCard(CardPack cardPack, Random cardPicker)
@@ -34,6 +33,14 @@ namespace Blackjack
             this.cards.Add(cardPack.GetCards()[cardPicker.Next(0, cardPack.GetCards().Count)]);
             cardPack.GetCards().Remove(this.cards[this.cards.Count - 1]);
             this.cardSum += cardPack.GetCardValues()[this.cards[this.cards.Count - 1]];
+            if(this.cards.Count == 2)
+            {
+                cardDrawer.CreateDrawingForBackSide();
+            }
+            else
+            {
+                cardDrawer.CreateDrawingForFrontSide(this.cards[this.cards.Count - 1]);
+            }
             return cardPack;
         }
 
@@ -87,6 +94,11 @@ namespace Blackjack
         public int getCardSum()
         {
             return this.cardSum;
+        }
+
+        public void RevealCard()
+        {
+            cardDrawer.ChangeCardDrawing(1, this.cards[1]);
         }
     }
 }
