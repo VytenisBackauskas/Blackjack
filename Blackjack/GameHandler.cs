@@ -10,7 +10,6 @@ namespace Blackjack
     {
         private CardPack cardPack;
         private Random cardPicker;
-
         private Player player;
         private Dealer dealer;
 
@@ -52,59 +51,58 @@ namespace Blackjack
             dealer.CheckAce();
         }
 
-        public int CheckBlackjack()
+        public int CheckInitialGameState()
         {
-            if(player.CheckBlackjack() && dealer.CheckBlackjack())
+            if(player.getCardSum() == 21 && dealer.getCardSum() == 21)
             {
-                Tie();
+                return 0;
+            }
+            else if (player.getCardSum() == 21)
+            {
                 return 1;
             }
-            else if (player.CheckBlackjack())
+            else if (dealer.getCardSum() == 21)
             {
-                Win();
-                return 2;
-            }
-            else if (dealer.CheckBlackjack())
-            {
-                Lose();
-                return 3;
-            }
-            return 0;
-        }
-
-        public int CheckGameState()
-        {
-            int blackjackState = CheckBlackjack();
-            if (dealer.getCardSum() == player.getCardSum())
-            {
-                Tie();
-                return 1;
-            }
-            else if (blackjackState == 2 || (player.getCardSum() <= 21 && player.getCardSum() > dealer.getCardSum()) || player.getCardSum() <= 21 && dealer.getCardSum() > 21)
-            {
-                Win();
                 return 2;
             }
             else
             {
-                Lose();
-                return 0;
+                return 3;
             }
         }
 
-        public void Win()
+        public int CheckGameState()
         {
-            Console.WriteLine("Laimėjote");
+            if (dealer.getCardSum() == player.getCardSum())
+            {
+                return 0;
+            }
+            else if (player.getCardSum() == 21 || (player.getCardSum() < 21 && dealer.getCardSum() > 21) || (player.getCardSum() < 21 && dealer.getCardSum() < 21 && player.getCardSum() > dealer.getCardSum()))
+            {
+                return 1;
+            }
+            else
+            {
+                return 2;
+            }
         }
 
-        public void Lose()
+        public void PrintGameStateMessage(int gameStateId)
         {
-            Console.WriteLine("Pralaimėjote");
-        }
-
-        public void Tie()
-        {
-            Console.WriteLine("Lygiosios");
+            switch (gameStateId)
+            {
+                case 0:
+                    Console.WriteLine("Lygiosios");
+                    break;
+                case 1:
+                    Console.WriteLine("Laimėjote");
+                    break;
+                case 2:
+                    Console.WriteLine("Pralaimėjote");
+                    break;
+                default:
+                    break;
+            }
         }
 
         public bool CanDraw(string user)

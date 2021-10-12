@@ -27,20 +27,10 @@ namespace Blackjack
                 gameHandler.PrintInfo("dealer");
                 gameHandler.PrintInfo("player");
 
-                if (gameHandler.CheckBlackjack() == 1)
+                if (gameHandler.CheckInitialGameState() != 3)
                 {
-                    pointsHandler.Tie();
-                    Console.ReadLine();
-                    continue;
-                }
-                else if (gameHandler.CheckBlackjack() == 2)
-                {
-                    pointsHandler.Win();
-                    Console.ReadLine();
-                    continue;
-                }
-                else if (gameHandler.CheckBlackjack() == 3)
-                {
+                    gameHandler.PrintGameStateMessage(gameHandler.CheckInitialGameState());
+                    pointsHandler.CountPoints(gameHandler.CheckInitialGameState());
                     Console.ReadLine();
                     continue;
                 }
@@ -87,7 +77,7 @@ namespace Blackjack
                     }
                     else
                     {
-                        if(gameHandler.CheckGameState() != 0)
+                        if(gameHandler.CheckGameState() != 2)
                         {
                             Console.Clear();
                             pointsHandler.PrintPlayingPoints();
@@ -106,21 +96,9 @@ namespace Blackjack
                         }
                     }
                 }
-                if(gameHandler.CheckGameState() == 1)
-                {
-                    pointsHandler.Tie();
-                    Console.ReadLine();
-                }
-                else if(gameHandler.CheckGameState() == 2)
-                {
-                    pointsHandler.Win();
-                    Console.ReadLine();
-                }
-                else
-                {
-                    Console.ReadLine();
-                    continue;
-                }
+                gameHandler.PrintGameStateMessage(gameHandler.CheckGameState());
+                pointsHandler.CountPoints(gameHandler.CheckGameState());
+                Console.ReadLine();
             }
             if (pointsHandler.IsOutOfPoints())
             {

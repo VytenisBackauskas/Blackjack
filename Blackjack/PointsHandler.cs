@@ -37,18 +37,23 @@ namespace Blackjack
             PrintPlayingPoints();
         }
 
-        public void Win()
+        public void CountPoints(int gameStateId)
         {
-            this.points += 2 * this.bet;
-            if(this.points > this.maximumPoints)
+            switch (gameStateId)
             {
-                this.maximumPoints = this.points;
+                case 0:
+                    this.points += this.bet;
+                    break;
+                case 1:
+                    this.points += 2 * this.bet;
+                    if (this.points > this.maximumPoints)
+                    {
+                        this.maximumPoints = this.points;
+                    }
+                    break;
+                default:
+                    break;
             }
-        }
-
-        public void Tie()
-        {
-            this.points += this.bet;
         }
 
         public bool IsOutOfPoints()
