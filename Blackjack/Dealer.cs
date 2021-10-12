@@ -88,11 +88,5 @@ namespace Blackjack
         {
             return this.cardSum;
         }
-
-        public void DrawAce()
-        {
-            this.cards.Add('A');
-            this.cardSum += 11;
-        }
     }
 }

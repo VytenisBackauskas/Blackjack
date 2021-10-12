@@ -62,7 +62,7 @@ namespace Blackjack
 
         public bool CheckBlackjack()
         {
-            if(cardSum == 21)
+            if (cardSum == 21)
             {
                 return true;
             }
@@ -74,7 +74,7 @@ namespace Blackjack
 
         public bool CanDraw()
         {
-            if(cardSum < 21)
+            if (cardSum < 21)
             {
                 return true;
             }
@@ -87,12 +87,6 @@ namespace Blackjack
         public int getCardSum()
         {
             return this.cardSum;
-        }
-
-        public void DrawAce()
-        {
-            this.cards.Add('A');
-            this.cardSum += 11;
         }
     }
 }

@@ -46,18 +46,6 @@ namespace Blackjack
             }
         }
 
-        public void DrawAce(string user)
-        {
-            if (user == "player")
-            {
-                player.DrawAce();
-            }
-            else if (user == "dealer")
-            {
-                dealer.DrawAce();
-            }
-        }
-
         public void CheckAce()
         {
             player.CheckAce();
