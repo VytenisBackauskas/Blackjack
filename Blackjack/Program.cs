@@ -44,11 +44,24 @@ namespace Blackjack
                     if (gameHandler.CanDraw("player"))
                     {
                         Console.WriteLine();
-                        int choice;
+                        int choice = 0;
                         Console.WriteLine("Pasirinkite tolimesnį žingsnį: ");
                         Console.WriteLine("1 - traukti kortą");
                         Console.WriteLine("2 - fiksuoti kortas");
-                        choice = int.Parse(Console.ReadLine());
+                        do
+                        {
+                            try
+                            {
+                                Console.SetCursorPosition(0, 18);
+                                Console.WriteLine(new String(' ', Console.WindowWidth));
+                                Console.SetCursorPosition(0, 18);
+                                choice = int.Parse(Console.ReadLine());
+                            }
+                            catch(Exception e)
+                            {
+                                continue;
+                            }
+                        } while (choice == 0);
 
                         switch (choice)
                         {

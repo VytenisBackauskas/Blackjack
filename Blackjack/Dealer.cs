@@ -25,7 +25,6 @@ namespace Blackjack
         {
             Console.WriteLine("Dalintojo kortos: ");
             cardDrawer.PrintAllCardsDrawings();
-            Console.WriteLine("Dalintojo suma: {0}", this.cardSum);
         }
 
         public CardPack DrawCard(CardPack cardPack, Random cardPicker)
