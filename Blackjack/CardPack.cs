@@ -13,7 +13,7 @@ namespace Blackjack
 
         public CardPack(int deckCount)
         {
-            List<char> cardSet = new List<char>
+            List<char> cardDeck = new List<char>
             {
                 '2', '2', '2', '2',
                 '3', '3', '3', '3',
@@ -32,7 +32,7 @@ namespace Blackjack
             this.cards = new List<char>();
             for(int i = 0; i < deckCount; i++)
             {
-                cards.AddRange(cardSet);
+                cards.AddRange(cardDeck);
             }
             this.cardValues = new Dictionary<char, int>
             {
@@ -48,7 +48,7 @@ namespace Blackjack
                 {'J', 10 },
                 {'Q', 10 },
                 {'K', 10 },
-                {'A', 11 },
+                {'A', 11 }
             };
         }
 

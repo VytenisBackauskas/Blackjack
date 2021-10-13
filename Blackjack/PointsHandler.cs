@@ -25,30 +25,42 @@ namespace Blackjack
 
         public void SetBet()
         {
-            int chosenBet;
+            int chosenBet = -1;
             do
             {
-                Console.Clear();
-                Console.WriteLine("Įveskite taškų kiekį ({0}): ", this.points);
-                chosenBet = int.Parse(Console.ReadLine());
+                try
+                {
+                    Console.Clear();
+                    Console.WriteLine("Įveskite taškų kiekį ({0}): ", this.points);
+                    chosenBet = int.Parse(Console.ReadLine());
+                }
+                catch(Exception e)
+                {
+                    continue;
+                }
             } while (chosenBet > this.points || chosenBet <= 0);
             this.bet = chosenBet;
             this.points -= chosenBet;
             PrintPlayingPoints();
         }
 
-        public void Win()
+        public void CountPoints(int gameStateId)
         {
-            this.points += 2 * this.bet;
-            if(this.points > this.maximumPoints)
+            switch (gameStateId)
             {
-                this.maximumPoints = this.points;
+                case 0:
+                    this.points += this.bet;
+                    break;
+                case 1:
+                    this.points += 2 * this.bet;
+                    if (this.points > this.maximumPoints)
+                    {
+                        this.maximumPoints = this.points;
+                    }
+                    break;
+                default:
+                    break;
             }
-        }
-
-        public void Tie()
-        {
-            this.points += this.bet;
         }
 
         public bool IsOutOfPoints()

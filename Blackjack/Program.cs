@@ -8,8 +8,8 @@ namespace Blackjack
         static void Main(string[] args)
         {
             PointsHandler pointsHandler = new PointsHandler(5000);
-            
-            while (!pointsHandler.IsOutOfPoints())
+            char gameEnd = 'a';
+            while (!pointsHandler.IsOutOfPoints() && gameEnd != 'q' && gameEnd != 'Q')
             {
                 pointsHandler.SetBet();
 
@@ -24,23 +24,16 @@ namespace Blackjack
                 gameHandler.CheckAce();
 
                 pointsHandler.PrintPlayingPoints();
-                gameHandler.PrintInfo("dealer");
-                gameHandler.PrintInfo("player");
+                gameHandler.PrintInfo();
 
-                if (gameHandler.CheckBlackjack() == 1)
+                if (gameHandler.CheckInitialGameState() != 3)
                 {
-                    pointsHandler.Tie();
-                    Console.ReadLine();
-                    continue;
-                }
-                else if (gameHandler.CheckBlackjack() == 2)
-                {
-                    pointsHandler.Win();
-                    Console.ReadLine();
-                    continue;
-                }
-                else if (gameHandler.CheckBlackjack() == 3)
-                {
+                    Console.Clear();
+                    gameHandler.RevealDealerCard();
+                    pointsHandler.PrintPlayingPoints();
+                    gameHandler.PrintInfo();
+                    gameHandler.PrintGameStateMessage(gameHandler.CheckInitialGameState());
+                    pointsHandler.CountPoints(gameHandler.CheckInitialGameState());
                     Console.ReadLine();
                     continue;
                 }
@@ -51,11 +44,24 @@ namespace Blackjack
                     if (gameHandler.CanDraw("player"))
                     {
                         Console.WriteLine();
-                        int choice;
+                        int choice = 0;
                         Console.WriteLine("Pasirinkite tolimesnį žingsnį: ");
                         Console.WriteLine("1 - traukti kortą");
                         Console.WriteLine("2 - fiksuoti kortas");
-                        choice = int.Parse(Console.ReadLine());
+                        do
+                        {
+                            try
+                            {
+                                Console.SetCursorPosition(0, 18);
+                                Console.WriteLine(new String(' ', Console.WindowWidth));
+                                Console.SetCursorPosition(0, 18);
+                                choice = int.Parse(Console.ReadLine());
+                            }
+                            catch(Exception e)
+                            {
+                                continue;
+                            }
+                        } while (choice == 0);
 
                         switch (choice)
                         {
@@ -64,11 +70,11 @@ namespace Blackjack
                                 pointsHandler.PrintPlayingPoints();
                                 gameHandler.DrawCard("player");
                                 gameHandler.CheckAce();
-                                gameHandler.PrintInfo("dealer");
-                                gameHandler.PrintInfo("player");
+                                gameHandler.PrintInfo();
                                 break;
                             case 2:
                                 Console.Clear();
+                                gameHandler.RevealDealerCard();
                                 pointsHandler.PrintPlayingPoints();
                                 while (gameHandler.CanDraw("dealer"))
                                 {
@@ -76,8 +82,7 @@ namespace Blackjack
                                     gameHandler.CheckAce();
                                 }
                                 loop = false;
-                                gameHandler.PrintInfo("dealer");
-                                gameHandler.PrintInfo("player");
+                                gameHandler.PrintInfo();
                                 break;
                             default:
                                 Console.Clear();
@@ -87,40 +92,45 @@ namespace Blackjack
                     }
                     else
                     {
-                        if(gameHandler.CheckGameState() != 0)
+                        if(gameHandler.CheckGameState() != 2)
                         {
                             Console.Clear();
+                            gameHandler.RevealDealerCard();
                             pointsHandler.PrintPlayingPoints();
                             while (gameHandler.CanDraw("dealer"))
                             {
                                 gameHandler.DrawCard("dealer");
                                 gameHandler.CheckAce();
                             }
-                            loop = false;
-                            gameHandler.PrintInfo("dealer");
-                            gameHandler.PrintInfo("player");
+                            gameHandler.PrintInfo();
+                            break;
                         }
                         else
                         {
+                            Console.Clear();
+                            gameHandler.RevealDealerCard();
+                            pointsHandler.PrintPlayingPoints();
+                            gameHandler.PrintInfo();
                             break;
                         }
                     }
                 }
-                if(gameHandler.CheckGameState() == 1)
+                
+                gameHandler.PrintGameStateMessage(gameHandler.CheckGameState());
+                pointsHandler.CountPoints(gameHandler.CheckGameState());
+                Console.WriteLine("Norėdami baigti žaidimą įveskite Q, kitu atveju spauskite Enter");
+                do
                 {
-                    pointsHandler.Tie();
-                    Console.ReadLine();
-                }
-                else if(gameHandler.CheckGameState() == 2)
-                {
-                    pointsHandler.Win();
-                    Console.ReadLine();
-                }
-                else
-                {
-                    Console.ReadLine();
-                    continue;
-                }
+                    try
+                    {
+                        gameEnd = char.Parse(Console.ReadLine());
+                        break;
+                    }
+                    catch (Exception e)
+                    {
+                        break;
+                    }
+                } while (true);
             }
             if (pointsHandler.IsOutOfPoints())
             {
