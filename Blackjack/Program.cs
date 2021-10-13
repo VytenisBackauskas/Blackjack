@@ -8,8 +8,8 @@ namespace Blackjack
         static void Main(string[] args)
         {
             PointsHandler pointsHandler = new PointsHandler(5000);
-            
-            while (!pointsHandler.IsOutOfPoints())
+            char gameEnd = 'a';
+            while (!pointsHandler.IsOutOfPoints() && gameEnd != 'q' && gameEnd != 'Q')
             {
                 pointsHandler.SetBet();
 
@@ -115,9 +115,22 @@ namespace Blackjack
                         }
                     }
                 }
+                
                 gameHandler.PrintGameStateMessage(gameHandler.CheckGameState());
                 pointsHandler.CountPoints(gameHandler.CheckGameState());
-                Console.ReadLine();
+                Console.WriteLine("Norėdami baigti žaidimą įveskite Q, kitu atveju spauskite Enter");
+                do
+                {
+                    try
+                    {
+                        gameEnd = char.Parse(Console.ReadLine());
+                        break;
+                    }
+                    catch (Exception e)
+                    {
+                        break;
+                    }
+                } while (true);
             }
             if (pointsHandler.IsOutOfPoints())
             {
