@@ -89,8 +89,8 @@ namespace Blackjack
                                 gameHandler.DrawCard("dealer");
                                 gameHandler.CheckAce();
                             }
-                            loop = false;
                             gameHandler.PrintInfo();
+                            break;
                         }
                         else
                         {

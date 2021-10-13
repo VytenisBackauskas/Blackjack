@@ -25,12 +25,19 @@ namespace Blackjack
 
         public void SetBet()
         {
-            int chosenBet;
+            int chosenBet = -1;
             do
             {
-                Console.Clear();
-                Console.WriteLine("Įveskite taškų kiekį ({0}): ", this.points);
-                chosenBet = int.Parse(Console.ReadLine());
+                try
+                {
+                    Console.Clear();
+                    Console.WriteLine("Įveskite taškų kiekį ({0}): ", this.points);
+                    chosenBet = int.Parse(Console.ReadLine());
+                }
+                catch(Exception e)
+                {
+                    continue;
+                }
             } while (chosenBet > this.points || chosenBet <= 0);
             this.bet = chosenBet;
             this.points -= chosenBet;
