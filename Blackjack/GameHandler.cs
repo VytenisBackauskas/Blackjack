@@ -31,7 +31,7 @@ namespace Blackjack
         {
             if (user == "player")
             {
-                cardPack = player.DrawCard(cardPack, cardPicker);
+                cardPack = player.PickCard(cardPack, cardPicker);
             }
             else if (user == "dealer")
             {
@@ -103,7 +103,7 @@ namespace Blackjack
         {
             if (user == "player")
             {
-                return player.CanDraw();
+                return player.CanPick();
             }
             else if (user == "dealer")
             {
