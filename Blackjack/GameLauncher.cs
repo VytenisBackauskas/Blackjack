@@ -16,11 +16,9 @@ namespace Blackjack
 
                 GameRoundHandler gameHandler = new GameRoundHandler();
 
-                gameHandler.DrawCard("dealer");
-                gameHandler.DrawCard("dealer");
+                gameHandler.PickCard("dealer", 2);
 
-                gameHandler.DrawCard("player");
-                gameHandler.DrawCard("player");
+                gameHandler.PickCard("player", 2);
 
                 gameHandler.CheckAce();
 
@@ -42,7 +40,7 @@ namespace Blackjack
                 bool loop = true;
                 while (loop)
                 {
-                    if (gameHandler.CanDraw("player"))
+                    if (gameHandler.CanPick("player"))
                     {
                         Console.WriteLine();
                         int choice = 0;
@@ -69,7 +67,7 @@ namespace Blackjack
                             case 1:
                                 Console.Clear();
                                 pointsHandler.PrintPlayingPoints();
-                                gameHandler.DrawCard("player");
+                                gameHandler.PickCard("player");
                                 gameHandler.CheckAce();
                                 gameHandler.PrintInfo();
                                 break;
@@ -77,9 +75,9 @@ namespace Blackjack
                                 Console.Clear();
                                 gameHandler.RevealHiddenCard();
                                 pointsHandler.PrintPlayingPoints();
-                                while (gameHandler.CanDraw("dealer"))
+                                while (gameHandler.CanPick("dealer"))
                                 {
-                                    gameHandler.DrawCard("dealer");
+                                    gameHandler.PickCard("dealer");
                                     gameHandler.CheckAce();
                                 }
                                 loop = false;
@@ -98,9 +96,9 @@ namespace Blackjack
                             Console.Clear();
                             gameHandler.RevealHiddenCard();
                             pointsHandler.PrintPlayingPoints();
-                            while (gameHandler.CanDraw("dealer"))
+                            while (gameHandler.CanPick("dealer"))
                             {
-                                gameHandler.DrawCard("dealer");
+                                gameHandler.PickCard("dealer");
                                 gameHandler.CheckAce();
                             }
                             gameHandler.PrintInfo();
