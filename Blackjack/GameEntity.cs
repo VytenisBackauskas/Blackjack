@@ -78,7 +78,7 @@ namespace Blackjack
             return this.cardSum;
         }
 
-        public int CountAceCards()
+        private int CountAceCards()
         {
             int aceCards = 0;
             foreach (char card in this.cards)
