@@ -7,14 +7,14 @@ using BlackjackGameState;
 
 namespace Blackjack
 {
-    class GameHandler
+    class GameRoundHandler : Revealable
     {
         private CardPack cardPack;
         private Random cardPicker;
         private Player player;
         private Dealer dealer;
 
-        public GameHandler()
+        public GameRoundHandler()
         {
             this.cardPack = new CardPack(2);
             this.cardPicker = new Random();
@@ -28,8 +28,34 @@ namespace Blackjack
             player.PrintInfo();
         }
 
-        public void DrawCard(string user)
+        public void PickCard(string user)
         {
+            switch (user)
+            {
+                case "player":
+                    cardPack = player.PickCard(cardPack, cardPicker);
+                    break;
+                case "dealer":
+                    cardPack = dealer.PickCard(cardPack, cardPicker);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public void PickCard(string user, int cardsCount)
+        {
+            switch (user)
+            {
+                case "player":
+                    PickMultipleCards(player, cardsCount);
+                    break;
+                case "dealer":
+                    PickMultipleCards(dealer, cardsCount);
+                    break;
+                default:
+                    break;
+            }
             if (user == "player")
             {
                 cardPack = player.PickCard(cardPack, cardPicker);
@@ -100,25 +126,30 @@ namespace Blackjack
             }
         }
 
-        public bool CanDraw(string user)
+        public bool CanPick(string user)
         {
-            if (user == "player")
+            switch (user)
             {
-                return player.CanPick();
-            }
-            else if (user == "dealer")
-            {
-                return dealer.CanPick();
-            }
-            else
-            {
-                return false;
+                case "player":
+                    return player.CanPick();
+                case "dealer":
+                    return dealer.CanPick();
+                default:
+                    return false;
             }
         }
 
-        public void RevealDealerCard()
+        public void RevealHiddenCard()
         {
             this.dealer.RevealHiddenCard();
+        }
+
+        private void PickMultipleCards(GameEntity gameEntity, int cardsCount)
+        {
+            for(int i = 0; i < cardsCount; i++)
+            {
+                cardPack = gameEntity.PickCard(cardPack, cardPicker);
+            }
         }
     }
 }

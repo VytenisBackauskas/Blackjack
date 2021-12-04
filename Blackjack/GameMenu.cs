@@ -14,7 +14,7 @@ namespace Blackjack
             {
                 pointsHandler.SetBet();
 
-                GameHandler gameHandler = new GameHandler();
+                GameRoundHandler gameHandler = new GameRoundHandler();
 
                 gameHandler.DrawCard("dealer");
                 gameHandler.DrawCard("dealer");
@@ -30,7 +30,7 @@ namespace Blackjack
                 if (gameHandler.CheckInitialGameState() != GameState.Continue)
                 {
                     Console.Clear();
-                    gameHandler.RevealDealerCard();
+                    gameHandler.RevealHiddenCard();
                     pointsHandler.PrintPlayingPoints();
                     gameHandler.PrintInfo();
                     gameHandler.PrintGameStateMessage(gameHandler.CheckInitialGameState());
@@ -75,7 +75,7 @@ namespace Blackjack
                                 break;
                             case 2:
                                 Console.Clear();
-                                gameHandler.RevealDealerCard();
+                                gameHandler.RevealHiddenCard();
                                 pointsHandler.PrintPlayingPoints();
                                 while (gameHandler.CanDraw("dealer"))
                                 {
@@ -96,7 +96,7 @@ namespace Blackjack
                         if(gameHandler.CheckGameState() != GameState.Lose)
                         {
                             Console.Clear();
-                            gameHandler.RevealDealerCard();
+                            gameHandler.RevealHiddenCard();
                             pointsHandler.PrintPlayingPoints();
                             while (gameHandler.CanDraw("dealer"))
                             {
@@ -109,7 +109,7 @@ namespace Blackjack
                         else
                         {
                             Console.Clear();
-                            gameHandler.RevealDealerCard();
+                            gameHandler.RevealHiddenCard();
                             pointsHandler.PrintPlayingPoints();
                             gameHandler.PrintInfo();
                             break;
@@ -125,7 +125,8 @@ namespace Blackjack
                     try
                     {
                         char gameEnd = char.Parse(Console.ReadLine());
-                        if(gameEnd == 'q' || gameEnd == 'Q')
+                        if (gameEnd == 'q' || gameEnd == 'Q')
+                            endGame = true;
                         break;
                     }
                     catch
