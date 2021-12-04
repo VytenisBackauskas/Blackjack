@@ -58,7 +58,7 @@ namespace Blackjack
             }
         }
 
-        public void CheckAce()
+        public void CheckAces()
         {
             player.CheckAce();
             dealer.CheckAce();
