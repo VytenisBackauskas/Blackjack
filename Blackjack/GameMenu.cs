@@ -57,7 +57,7 @@ namespace Blackjack
                                 Console.SetCursorPosition(0, 18);
                                 choice = int.Parse(Console.ReadLine());
                             }
-                            catch(Exception e)
+                            catch
                             {
                                 continue;
                             }
@@ -126,7 +126,7 @@ namespace Blackjack
                         gameEnd = char.Parse(Console.ReadLine());
                         break;
                     }
-                    catch (Exception e)
+                    catch
                     {
                         break;
                     }

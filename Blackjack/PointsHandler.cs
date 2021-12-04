@@ -34,7 +34,7 @@ namespace Blackjack
                     Console.WriteLine("Įveskite taškų kiekį ({0}): ", this.points);
                     chosenBet = int.Parse(Console.ReadLine());
                 }
-                catch(Exception e)
+                catch
                 {
                     continue;
                 }
