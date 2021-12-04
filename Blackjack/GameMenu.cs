@@ -5,10 +5,11 @@ namespace Blackjack
 {
     class GameMenu
     {
+        private static char gameEnd;
         static void Main(string[] args)
         {
             PointsHandler pointsHandler = new PointsHandler(5000);
-            char gameEnd;
+            //char gameEnd = 'a';
             do
             {
                 pointsHandler.SetBet();
@@ -117,19 +118,9 @@ namespace Blackjack
                 }
                 gameHandler.PrintGameStateMessage(gameHandler.CheckGameState());
                 pointsHandler.CountPoints(gameHandler.CheckGameState());
-                Console.WriteLine("Norėdami baigti žaidimą įveskite Q, kitu atveju spauskite Enter");
-                do
-                {
-                    try
-                    {
-                        gameEnd = char.Parse(Console.ReadLine());
-                        break;
-                    }
-                    catch
-                    {
-                        break;
-                    }
-                } while (true);
+
+                gameEnd = InputGameEnd();
+
                 if (pointsHandler.IsOutOfPoints())
                 {
                     Console.WriteLine("Pralaimėjote žaidimą. Maksimaliai buvo surinkta {0} taškų", pointsHandler.GetMaximumPoints());
@@ -141,6 +132,19 @@ namespace Blackjack
             } while (!pointsHandler.IsOutOfPoints() && gameEnd != 'q' && gameEnd != 'Q');
         }
 
-        public 
+        public static char InputGameEnd()
+        {
+            char gameEnd;
+            Console.WriteLine("Norėdami baigti žaidimą įveskite Q, kitu atveju spauskite Enter");
+            try
+            {
+                gameEnd = char.Parse(Console.ReadLine());
+                return gameEnd;
+            }
+            catch
+            {
+                return ' ';
+            }
+        }
     }
 }
