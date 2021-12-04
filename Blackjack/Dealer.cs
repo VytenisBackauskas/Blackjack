@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Blackjack
 {
-    class Dealer : GameEntity
+    class Dealer : GameEntity, Revealable
     {
         public Dealer() : base()
         {
