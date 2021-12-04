@@ -14,7 +14,7 @@ namespace Blackjack
             {
                 pointsHandler.SetBet();
 
-                GameRoundHandler gameHandler = new GameRoundHandler();
+                GameHandler gameHandler = new GameHandler();
 
                 gameHandler.PickCard("dealer", 2);
 

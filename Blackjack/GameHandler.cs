@@ -7,14 +7,14 @@ using BlackjackGameState;
 
 namespace Blackjack
 {
-    class GameRoundHandler : Revealable
+    class GameHandler : Revealable
     {
         private CardPack cardPack;
         private Random cardPicker;
         private Player player;
         private Dealer dealer;
 
-        public GameRoundHandler()
+        public GameHandler()
         {
             this.cardPack = new CardPack(2);
             this.cardPicker = new Random();
@@ -55,14 +55,6 @@ namespace Blackjack
                     break;
                 default:
                     break;
-            }
-            if (user == "player")
-            {
-                cardPack = player.PickCard(cardPack, cardPicker);
-            }
-            else if (user == "dealer")
-            {
-                cardPack = dealer.PickCard(cardPack, cardPicker);
             }
         }
 
@@ -148,7 +140,7 @@ namespace Blackjack
         {
             for(int i = 0; i < cardsCount; i++)
             {
-                cardPack = gameEntity.PickCard(cardPack, cardPicker);
+                this.cardPack = gameEntity.PickCard(cardPack, cardPicker);
             }
         }
     }
