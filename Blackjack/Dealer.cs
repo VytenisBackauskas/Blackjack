@@ -6,28 +6,19 @@ using System.Threading.Tasks;
 
 namespace Blackjack
 {
-    class Dealer
+    class Dealer : GameEntity
     {
-        private CardDrawer cardDrawer;
-        private List<char> cards;
-        private int cardSum;
-        private int aceUses;
-
-        public Dealer()
+        public Dealer() : base()
         {
-            this.cardDrawer = new CardDrawer();
-            this.cards = new List<char>();
-            this.cardSum = 0;
-            this.aceUses = 0;
         }
 
-        public void PrintInfo()
+        public override void PrintInfo()
         {
             Console.WriteLine("Dalintojo kortos: ");
             cardDrawer.PrintAllCardsDrawings();
         }
 
-        public CardPack DrawCard(CardPack cardPack, Random cardPicker)
+        public override CardPack PickCard(CardPack cardPack, Random cardPicker)
         {
             this.cards.Add(cardPack.GetCards()[cardPicker.Next(0, cardPack.GetCards().Count)]);
             cardPack.GetCards().Remove(this.cards[this.cards.Count - 1]);
@@ -43,42 +34,7 @@ namespace Blackjack
             return cardPack;
         }
 
-        public bool CheckAce()
-        {
-            if (cardSum <= 21)
-            {
-                return false;
-            }
-            int aceCards = 0;
-            foreach (char card in this.cards)
-            {
-                if (card == 'A')
-                {
-                    aceCards++;
-                }
-            }
-            if (aceCards > aceUses)
-            {
-                this.cardSum -= 10;
-                aceUses++;
-                return true;
-            }
-            return false;
-        }
-
-        public bool CheckBlackjack()
-        {
-            if (cardSum == 21)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public bool CanDraw()
+        public override bool CanPick()
         {
             if (cardSum < 17)
             {
@@ -90,12 +46,7 @@ namespace Blackjack
             }
         }
 
-        public int getCardSum()
-        {
-            return this.cardSum;
-        }
-
-        public void RevealCard()
+        public void RevealHiddenCard()
         {
             cardDrawer.ChangeCardDrawing(1, this.cards[1]);
         }
