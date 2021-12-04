@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BlackjackGameState;
 
 namespace Blackjack
 {
@@ -45,53 +46,53 @@ namespace Blackjack
             dealer.CheckAce();
         }
 
-        public int CheckInitialGameState()
+        public GameState CheckInitialGameState()
         {
             if(player.getCardSum() == 21 && dealer.getCardSum() == 21)
             {
-                return 0;
+                return GameState.Tie;
             }
             else if (player.getCardSum() == 21)
             {
-                return 1;
+                return GameState.Win;
             }
             else if (dealer.getCardSum() == 21)
             {
-                return 2;
+                return GameState.Lose;
             }
             else
             {
-                return 3;
+                return GameState.Continue;
             }
         }
 
-        public int CheckGameState()
+        public GameState CheckGameState()
         {
             if (dealer.getCardSum() == player.getCardSum())
             {
-                return 0;
+                return GameState.Tie;
             }
             else if (player.getCardSum() == 21 || (player.getCardSum() < 21 && dealer.getCardSum() > 21) || (player.getCardSum() < 21 && dealer.getCardSum() < 21 && player.getCardSum() > dealer.getCardSum()))
             {
-                return 1;
+                return GameState.Win;
             }
             else
             {
-                return 2;
+                return GameState.Lose;
             }
         }
 
-        public void PrintGameStateMessage(int gameStateId)
+        public void PrintGameStateMessage(GameState currentGameState)
         {
-            switch (gameStateId)
+            switch (currentGameState)
             {
-                case 0:
+                case GameState.Tie:
                     Console.WriteLine("Lygiosios");
                     break;
-                case 1:
+                case GameState.Win:
                     Console.WriteLine("Laimėjote");
                     break;
-                case 2:
+                case GameState.Lose:
                     Console.WriteLine("Pralaimėjote");
                     break;
                 default:

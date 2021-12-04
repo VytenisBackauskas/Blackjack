@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BlackjackGameState;
 
 namespace Blackjack
 {
@@ -12,6 +13,11 @@ namespace Blackjack
         private int bet;
         private int maximumPoints;
 
+        public PointsHandler()
+        {
+            this.points = 5000;
+            this.maximumPoints = 5000;
+        }
         public PointsHandler(int points)
         {
             this.points = points;
@@ -44,14 +50,14 @@ namespace Blackjack
             PrintPlayingPoints();
         }
 
-        public void CountPoints(int gameStateId)
+        public void CountPoints(GameState currentGameState)
         {
-            switch (gameStateId)
+            switch (currentGameState)
             {
-                case 0:
+                case GameState.Tie:
                     this.points += this.bet;
                     break;
-                case 1:
+                case GameState.Win:
                     this.points += 2 * this.bet;
                     if (this.points > this.maximumPoints)
                     {

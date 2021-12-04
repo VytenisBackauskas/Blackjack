@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using BlackjackGameState;
 
 namespace Blackjack
 {
@@ -7,9 +8,9 @@ namespace Blackjack
     {
         static void Main(string[] args)
         {
-            PointsHandler pointsHandler = new PointsHandler(5000);
-            char gameEnd = 'a';
-            while (!pointsHandler.IsOutOfPoints() && gameEnd != 'q' && gameEnd != 'Q')
+            PointsHandler pointsHandler = new PointsHandler(10000);
+            bool endGame = false;
+            while (!pointsHandler.IsOutOfPoints() && !endGame)
             {
                 pointsHandler.SetBet();
 
@@ -26,7 +27,7 @@ namespace Blackjack
                 pointsHandler.PrintPlayingPoints();
                 gameHandler.PrintInfo();
 
-                if (gameHandler.CheckInitialGameState() != 3)
+                if (gameHandler.CheckInitialGameState() != GameState.Continue)
                 {
                     Console.Clear();
                     gameHandler.RevealDealerCard();
@@ -92,7 +93,7 @@ namespace Blackjack
                     }
                     else
                     {
-                        if(gameHandler.CheckGameState() != 2)
+                        if(gameHandler.CheckGameState() != GameState.Lose)
                         {
                             Console.Clear();
                             gameHandler.RevealDealerCard();
@@ -123,7 +124,8 @@ namespace Blackjack
                 {
                     try
                     {
-                        gameEnd = char.Parse(Console.ReadLine());
+                        char gameEnd = char.Parse(Console.ReadLine());
+                        if(gameEnd == 'q' || gameEnd == 'Q')
                         break;
                     }
                     catch
