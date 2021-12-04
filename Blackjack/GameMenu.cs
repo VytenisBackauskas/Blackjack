@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace Blackjack
 {
-    class Program
+    class GameMenu
     {
         static void Main(string[] args)
         {
             PointsHandler pointsHandler = new PointsHandler(5000);
-            char gameEnd = 'a';
-            while (!pointsHandler.IsOutOfPoints() && gameEnd != 'q' && gameEnd != 'Q')
+            char gameEnd;
+            do
             {
                 pointsHandler.SetBet();
 
@@ -57,7 +57,7 @@ namespace Blackjack
                                 Console.SetCursorPosition(0, 18);
                                 choice = int.Parse(Console.ReadLine());
                             }
-                            catch(Exception e)
+                            catch (Exception e)
                             {
                                 continue;
                             }
@@ -92,7 +92,7 @@ namespace Blackjack
                     }
                     else
                     {
-                        if(gameHandler.CheckGameState() != 2)
+                        if (gameHandler.CheckGameState() != 2)
                         {
                             Console.Clear();
                             gameHandler.RevealDealerCard();
@@ -115,7 +115,6 @@ namespace Blackjack
                         }
                     }
                 }
-                
                 gameHandler.PrintGameStateMessage(gameHandler.CheckGameState());
                 pointsHandler.CountPoints(gameHandler.CheckGameState());
                 Console.WriteLine("Norėdami baigti žaidimą įveskite Q, kitu atveju spauskite Enter");
@@ -126,21 +125,22 @@ namespace Blackjack
                         gameEnd = char.Parse(Console.ReadLine());
                         break;
                     }
-                    catch (Exception e)
+                    catch
                     {
                         break;
                     }
                 } while (true);
-            }
-            if (pointsHandler.IsOutOfPoints())
-            {
-                Console.WriteLine("Pralaimėjote žaidimą. Maksimaliai buvo surinkta {0} taškų", pointsHandler.GetMaximumPoints());
-            }
-            else
-            {
-                Console.WriteLine("Žaidimas baigtas. Surinkta {0} taškų. Maksimaliai buvo surinkta {1} taškų", pointsHandler.GetPoints(), pointsHandler.GetMaximumPoints());
-            }
+                if (pointsHandler.IsOutOfPoints())
+                {
+                    Console.WriteLine("Pralaimėjote žaidimą. Maksimaliai buvo surinkta {0} taškų", pointsHandler.GetMaximumPoints());
+                }
+                else
+                {
+                    Console.WriteLine("Žaidimas baigtas. Surinkta {0} taškų. Maksimaliai buvo surinkta {1} taškų", pointsHandler.GetPoints(), pointsHandler.GetMaximumPoints());
+                }
+            } while (!pointsHandler.IsOutOfPoints() && gameEnd != 'q' && gameEnd != 'Q');
         }
 
+        public 
     }
 }
