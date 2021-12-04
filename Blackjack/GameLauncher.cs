@@ -4,7 +4,7 @@ using BlackjackGameState;
 
 namespace Blackjack
 {
-    class GameMenu
+    class GameLauncher
     {
         static void Main(string[] args)
         {
