@@ -6,7 +6,7 @@ namespace Blackjack
 {
     class GameLauncher
     {
-        private static PointsHandler pointsHandler = new PointsHandler(10000);
+        private static PointsHandler pointsHandler = PointsHandler.Instance;
         private static bool stopGame = false;
         static void Main(string[] args)
         {

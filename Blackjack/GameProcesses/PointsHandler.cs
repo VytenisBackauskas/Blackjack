@@ -7,21 +7,30 @@ using BlackjackGameState;
 
 namespace Blackjack
 {
-    class PointsHandler
+    sealed class PointsHandler
     {
         private int points;
         private int bet;
         private int maximumPoints;
 
-        public PointsHandler()
+        private PointsHandler()
         {
             this.points = 5000;
             this.maximumPoints = 5000;
         }
-        public PointsHandler(int points)
+        private PointsHandler(int points)
         {
             this.points = points;
             this.maximumPoints = points;
+        }
+
+        private static readonly Lazy<PointsHandler> lazy = new Lazy<PointsHandler>(() => new PointsHandler(15000));
+        public static PointsHandler Instance
+        {
+            get
+            {
+                return lazy.Value;
+            }
         }
 
         public int GetPoints()
