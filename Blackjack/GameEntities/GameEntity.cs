@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace Blackjack
 {
-    abstract class GameEntity
+    public abstract class GameEntity
     {
         protected CardDrawer cardDrawer;
         protected List<char> cards;
-        protected int cardSum;
         protected int aceUses;
+        public virtual int CardSum { get; set; }
 
         public GameEntity()
         {
             this.cardDrawer = new CardDrawer();
             this.cards = new List<char>();
-            this.cardSum = 0;
+            this.CardSum = 0;
             this.aceUses = 0;
         }
 
@@ -30,16 +30,16 @@ namespace Blackjack
         {
             this.cards.Add(cardPack.GetCards()[cardPicker.Next(0, cardPack.GetCards().Count)]);
             cardPack.GetCards().Remove(this.cards[this.cards.Count - 1]);
-            this.cardSum += cardPack.GetCardValues()[this.cards[this.cards.Count - 1]];
+            CardSum += cardPack.GetCardValues()[this.cards[this.cards.Count - 1]];
             cardDrawer.CreateDrawingForFrontSide(this.cards[this.cards.Count - 1]);
             return cardPack;
         }
 
         public bool CheckAce()
         {
-            if (CountAceCards() > aceUses && cardSum > 21)
+            if (CountAceCards() > aceUses && CardSum > 21)
             {
-                this.cardSum -= 10;
+                CardSum -= 10;
                 aceUses++;
                 return true;
             }
@@ -49,9 +49,9 @@ namespace Blackjack
             }
         }
 
-        public bool CheckBlackjack()
+        public virtual bool CheckBlackjack()
         {
-            if (cardSum == 21)
+            if (CardSum == 21)
             {
                 return true;
             }
@@ -63,7 +63,7 @@ namespace Blackjack
 
         public virtual bool CanPick()
         {
-            if (cardSum < 21)
+            if (CardSum < 21)
             {
                 return true;
             }
@@ -73,12 +73,7 @@ namespace Blackjack
             }
         }
 
-        public int getCardSum()
-        {
-            return this.cardSum;
-        }
-
-        private int CountAceCards()
+        public virtual int CountAceCards()
         {
             int aceCards = 0;
             foreach (char card in this.cards)

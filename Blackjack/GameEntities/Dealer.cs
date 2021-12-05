@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Blackjack
 {
-    class Dealer : GameEntity, Revealable
+    public class Dealer : GameEntity, Revealable
     {
         public Dealer() : base()
         {
@@ -22,7 +22,7 @@ namespace Blackjack
         {
             this.cards.Add(cardPack.GetCards()[cardPicker.Next(0, cardPack.GetCards().Count)]);
             cardPack.GetCards().Remove(this.cards[this.cards.Count - 1]);
-            this.cardSum += cardPack.GetCardValues()[this.cards[this.cards.Count - 1]];
+            CardSum += cardPack.GetCardValues()[this.cards[this.cards.Count - 1]];
             if(this.cards.Count == 2)
             {
                 cardDrawer.CreateDrawingForBackSide();
@@ -36,7 +36,7 @@ namespace Blackjack
 
         public override bool CanPick()
         {
-            if (cardSum < 17)
+            if (CardSum < 17)
             {
                 return true;
             }

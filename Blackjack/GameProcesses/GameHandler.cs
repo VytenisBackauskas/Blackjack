@@ -7,7 +7,7 @@ using BlackjackGameState;
 
 namespace Blackjack
 {
-    class GameHandler : Revealable
+    public class GameHandler : Revealable
     {
         private CardPack cardPack;
         private Random cardPicker;
@@ -20,6 +20,14 @@ namespace Blackjack
             this.cardPicker = new Random();
             this.player = new Player();
             this.dealer = new Dealer();
+        }
+
+        public GameHandler(Player player, Dealer dealer)
+        {
+            this.cardPack = new CardPack(2);
+            this.cardPicker = new Random();
+            this.player = player;
+            this.dealer = dealer;
         }
 
         public void PrintInfo()
@@ -66,15 +74,15 @@ namespace Blackjack
 
         public GameState CheckInitialGameState()
         {
-            if(player.getCardSum() == 21 && dealer.getCardSum() == 21)
+            if(player.CheckBlackjack() && dealer.CheckBlackjack())
             {
                 return GameState.Tie;
             }
-            else if (player.getCardSum() == 21)
+            else if (player.CheckBlackjack())
             {
                 return GameState.Win;
             }
-            else if (dealer.getCardSum() == 21)
+            else if (dealer.CheckBlackjack())
             {
                 return GameState.Lose;
             }
@@ -86,11 +94,11 @@ namespace Blackjack
 
         public GameState CheckGameState()
         {
-            if (dealer.getCardSum() == player.getCardSum())
+            if (dealer.CardSum == player.CardSum)
             {
                 return GameState.Tie;
             }
-            else if (player.getCardSum() == 21 || (player.getCardSum() < 21 && dealer.getCardSum() > 21) || (player.getCardSum() < 21 && dealer.getCardSum() < 21 && player.getCardSum() > dealer.getCardSum()))
+            else if (player.CardSum == 21 || (player.CardSum < 21 && dealer.CardSum > 21) || (player.CardSum < 21 && dealer.CardSum < 21 && player.CardSum > dealer.CardSum))
             {
                 return GameState.Win;
             }

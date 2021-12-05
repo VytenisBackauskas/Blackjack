@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Blackjack
 {
-    class CardPack
+    public class CardPack
     {
         private List<char> cards;
         private Dictionary<char, int> cardValues;

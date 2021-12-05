@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Blackjack
 {
-    class Player : GameEntity
+    public class Player : GameEntity
     {
         public Player() : base()
         {
@@ -16,7 +16,7 @@ namespace Blackjack
         {
             Console.WriteLine("Žaidėjo kortos: ");
             cardDrawer.PrintAllCardsDrawings();
-            Console.WriteLine("Žaidėjo suma: {0}", this.cardSum);
+            Console.WriteLine("Žaidėjo suma: {0}", CardSum);
         }
     }
 }
