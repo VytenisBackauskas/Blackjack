@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Blackjack.GameEntities;
 using BlackjackGameState;
 
 namespace Blackjack
