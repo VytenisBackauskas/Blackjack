@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Blackjack
 {
-    class CardDrawer
+    public class CardDrawer
     {
         private List<char[,]> cardDrawings;
         public CardDrawer()

@@ -3,19 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BlackjackGameState;
 
 namespace Blackjack
 {
-    class PointsHandler
+    sealed class PointsHandler
     {
         private int points;
         private int bet;
         private int maximumPoints;
 
-        public PointsHandler(int points)
+        private PointsHandler()
+        {
+            this.points = 5000;
+            this.maximumPoints = 5000;
+        }
+        private PointsHandler(int points)
         {
             this.points = points;
             this.maximumPoints = points;
+        }
+
+        private static readonly Lazy<PointsHandler> lazy = new Lazy<PointsHandler>(() => new PointsHandler(15000));
+        public static PointsHandler Instance
+        {
+            get
+            {
+                return lazy.Value;
+            }
         }
 
         public int GetPoints()
@@ -34,7 +49,7 @@ namespace Blackjack
                     Console.WriteLine("Įveskite taškų kiekį ({0}): ", this.points);
                     chosenBet = int.Parse(Console.ReadLine());
                 }
-                catch(Exception e)
+                catch
                 {
                     continue;
                 }
@@ -44,14 +59,14 @@ namespace Blackjack
             PrintPlayingPoints();
         }
 
-        public void CountPoints(int gameStateId)
+        public void CountPoints(GameState currentGameState)
         {
-            switch (gameStateId)
+            switch (currentGameState)
             {
-                case 0:
+                case GameState.Tie:
                     this.points += this.bet;
                     break;
-                case 1:
+                case GameState.Win:
                     this.points += 2 * this.bet;
                     if (this.points > this.maximumPoints)
                     {
