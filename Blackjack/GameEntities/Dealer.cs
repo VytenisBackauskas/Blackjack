@@ -29,7 +29,7 @@ namespace Blackjack
             }
             else
             {
-                cardDrawer.CreateDrawingForFrontSide(this.cards[this.cards.Count - 1].getSymbol());
+                cardDrawer.CreateDrawingForFrontSide(this.cards[this.cards.Count - 1]);
             }
             return cardPack;
         }
@@ -48,7 +48,7 @@ namespace Blackjack
 
         public void RevealHiddenCard()
         {
-            cardDrawer.ChangeCardDrawing(1, this.cards[1].getSymbol());
+            cardDrawer.ChangeCardDrawing(1, this.cards[1]);
         }
     }
 }

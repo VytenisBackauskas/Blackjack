@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Moq;
+using Blackjack.GameEntities;
 
 namespace Blackjack.Tests
 {
@@ -16,12 +17,12 @@ namespace Blackjack.Tests
         public void CreateDrawingForFrontSideTest()
         {
             CardDrawer testCardDrawer = new CardDrawer();
-            char cardIdentifier = 'K';
-            testCardDrawer.CreateDrawingForFrontSide(cardIdentifier);
+            Card testCard = new Card('K', 'R');
+            testCardDrawer.CreateDrawingForFrontSide(testCard);
 
             char result = testCardDrawer.GetCardDrawings().First()[1,1];
 
-            Assert.AreEqual(cardIdentifier, result);
+            Assert.AreEqual(testCard.getSymbol(), result);
         }
 
         [TestMethod()]
@@ -39,13 +40,13 @@ namespace Blackjack.Tests
         public void ChangeCardDrawingTest()
         {
             CardDrawer testCardDrawer = new CardDrawer();
-            char cardIdentifier = 'K';
+            Card testCard = new Card('K', 'R');
             testCardDrawer.CreateDrawingForBackSide();
-            testCardDrawer.ChangeCardDrawing(0, cardIdentifier);
+            testCardDrawer.ChangeCardDrawing(0, testCard);
 
             char result = testCardDrawer.GetCardDrawings().First()[1, 1];
 
-            Assert.AreEqual(cardIdentifier, result);
+            Assert.AreEqual(testCard.getSymbol(), result);
         }
     }
 }

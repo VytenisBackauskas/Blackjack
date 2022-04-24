@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Blackjack.GameEntities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,13 +10,16 @@ namespace Blackjack
     public class CardDrawer
     {
         private List<char[,]> cardDrawings;
+        private List<char> cardColors;
         public CardDrawer()
         {
             this.cardDrawings = new List<char[,]>();
+            this.cardColors = new List<char>();
         }
 
-        public void CreateDrawingForFrontSide(char cardIdentifier)
+        public void CreateDrawingForFrontSide(Card card)
         {
+            char cardIdentifier = card.getSymbol();
             char[,] cardDrawing =
             {
                 {'\u250c', '\u2500', '\u2500', '\u2500', '\u2510'},
@@ -24,7 +28,8 @@ namespace Blackjack
                 {'\u2502', ' ', ' ',  cardIdentifier, '\u2502'},
                 {'\u2514', '\u2500', '\u2500', '\u2500', '\u2518'}
             };
-            cardDrawings.Add(cardDrawing);
+            this.cardDrawings.Add(cardDrawing);
+            this.cardColors.Add(card.getColor());
         }
 
         public void CreateDrawingForBackSide()
@@ -37,7 +42,8 @@ namespace Blackjack
                 {'\u2502', '\u2593', '\u2593', '\u2593', '\u2502'},
                 {'\u2514', '\u2500', '\u2500', '\u2500', '\u2518'}
             };
-            cardDrawings.Add(cardDrawing);
+            this.cardDrawings.Add(cardDrawing);
+            this.cardColors.Add('W');
         }
 
         public void PrintAllCardsDrawings()
@@ -56,8 +62,9 @@ namespace Blackjack
 
         }
 
-        public void ChangeCardDrawing(int index, char cardIdentifier)
+        public void ChangeCardDrawing(int index, Card card)
         {
+            char cardIdentifier = card.getSymbol();
             char[,] cardDrawing =
             {
                 {'\u250c', '\u2500', '\u2500', '\u2500', '\u2510'},
@@ -67,6 +74,7 @@ namespace Blackjack
                 {'\u2514', '\u2500', '\u2500', '\u2500', '\u2518'}
             };
             this.cardDrawings[index] = cardDrawing;
+            this.cardColors[index] = card.getColor();
         }
 
         public List<char[,]> GetCardDrawings()
