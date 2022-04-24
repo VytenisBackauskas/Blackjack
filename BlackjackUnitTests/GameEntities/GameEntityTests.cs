@@ -10,7 +10,7 @@ using Moq;
 namespace Blackjack.Tests
 {
     [TestClass()]
-    public class EntitiesTest
+    public class GameEntityTests
     {
         [TestMethod()]
         public void CheckAceTest()

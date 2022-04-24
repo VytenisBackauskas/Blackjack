@@ -13,6 +13,10 @@ namespace Blackjack
 
         public CardPack(int deckCount)
         {
+            if(deckCount <= 0)
+            {
+                deckCount = 1;
+            }
             List<char> cardDeck = new List<char>
             {
                 '2', '2', '2', '2',
