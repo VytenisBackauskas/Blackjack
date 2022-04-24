@@ -68,5 +68,10 @@ namespace Blackjack
             };
             this.cardDrawings[index] = cardDrawing;
         }
+
+        public List<char[,]> GetCardDrawings()
+        {
+            return this.cardDrawings;
+        }
     }
 }
