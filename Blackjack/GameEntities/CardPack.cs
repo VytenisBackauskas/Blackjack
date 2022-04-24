@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Blackjack.GameEntities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace Blackjack
 {
     public class CardPack
     {
-        private List<char> cards;
+        private List<Card> cards;
         private Dictionary<char, int> cardValues;
 
         public CardPack(int deckCount)
@@ -17,23 +18,23 @@ namespace Blackjack
             {
                 deckCount = 1;
             }
-            List<char> cardDeck = new List<char>
+            List<Card> cardDeck = new List<Card>
             {
-                '2', '2', '2', '2',
-                '3', '3', '3', '3',
-                '4', '4', '4', '4',
-                '5', '5', '5', '5',
-                '6', '6', '6', '6',
-                '7', '7', '7', '7',
-                '8', '8', '8', '8',
-                '9', '9', '9', '9',
-                'T', 'T', 'T', 'T',
-                'J', 'J', 'J', 'J',
-                'Q', 'Q', 'Q', 'Q',
-                'K', 'K', 'K', 'K',
-                'A', 'A', 'A', 'A'
+                new Card('2', 'W'), new Card('2', 'W'), new Card('2', 'R'), new Card('2', 'R'),
+                new Card('3', 'W'), new Card('3', 'W'), new Card('3', 'R'), new Card('3', 'R'),
+                new Card('4', 'W'), new Card('4', 'W'), new Card('4', 'R'), new Card('4', 'R'),
+                new Card('5', 'W'), new Card('5', 'W'), new Card('5', 'R'), new Card('5', 'R'),
+                new Card('6', 'W'), new Card('6', 'W'), new Card('6', 'R'), new Card('6', 'R'),
+                new Card('7', 'W'), new Card('7', 'W'), new Card('7', 'R'), new Card('7', 'R'),
+                new Card('8', 'W'), new Card('8', 'W'), new Card('8', 'R'), new Card('8', 'R'),
+                new Card('9', 'W'), new Card('9', 'W'), new Card('9', 'R'), new Card('9', 'R'),
+                new Card('T', 'W'), new Card('T', 'W'), new Card('T', 'R'), new Card('T', 'R'),
+                new Card('J', 'W'), new Card('J', 'W'), new Card('J', 'R'), new Card('J', 'R'),
+                new Card('Q', 'W'), new Card('Q', 'W'), new Card('Q', 'R'), new Card('Q', 'R'),
+                new Card('K', 'W'), new Card('K', 'W'), new Card('K', 'R'), new Card('K', 'R'),
+                new Card('A', 'W'), new Card('A', 'W'), new Card('A', 'R'), new Card('A', 'R'),
             };
-            this.cards = new List<char>();
+            this.cards = new List<Card>();
             for(int i = 0; i < deckCount; i++)
             {
                 cards.AddRange(cardDeck);
@@ -56,7 +57,7 @@ namespace Blackjack
             };
         }
 
-        public List<char> GetCards()
+        public List<Card> GetCards()
         {
             return this.cards;
         }

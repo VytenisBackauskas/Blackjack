@@ -22,14 +22,14 @@ namespace Blackjack
         {
             this.cards.Add(cardPack.GetCards()[cardPicker.Next(0, cardPack.GetCards().Count)]);
             cardPack.GetCards().Remove(this.cards[this.cards.Count - 1]);
-            CardSum += cardPack.GetCardValues()[this.cards[this.cards.Count - 1]];
+            CardSum += cardPack.GetCardValues()[this.cards[this.cards.Count - 1].getSymbol()];
             if(this.cards.Count == 2)
             {
                 cardDrawer.CreateDrawingForBackSide();
             }
             else
             {
-                cardDrawer.CreateDrawingForFrontSide(this.cards[this.cards.Count - 1]);
+                cardDrawer.CreateDrawingForFrontSide(this.cards[this.cards.Count - 1].getSymbol());
             }
             return cardPack;
         }
@@ -48,7 +48,7 @@ namespace Blackjack
 
         public void RevealHiddenCard()
         {
-            cardDrawer.ChangeCardDrawing(1, this.cards[1]);
+            cardDrawer.ChangeCardDrawing(1, this.cards[1].getSymbol());
         }
     }
 }

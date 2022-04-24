@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Blackjack.GameEntities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,14 +10,14 @@ namespace Blackjack
     public abstract class GameEntity
     {
         protected CardDrawer cardDrawer;
-        protected List<char> cards;
+        protected List<Card> cards;
         protected int aceUses;
         public virtual int CardSum { get; set; }
 
         public GameEntity()
         {
             this.cardDrawer = new CardDrawer();
-            this.cards = new List<char>();
+            this.cards = new List<Card>();
             this.CardSum = 0;
             this.aceUses = 0;
         }
@@ -30,8 +31,8 @@ namespace Blackjack
         {
             this.cards.Add(cardPack.GetCards()[cardPicker.Next(0, cardPack.GetCards().Count)]);
             cardPack.GetCards().Remove(this.cards[this.cards.Count - 1]);
-            CardSum += cardPack.GetCardValues()[this.cards[this.cards.Count - 1]];
-            cardDrawer.CreateDrawingForFrontSide(this.cards[this.cards.Count - 1]);
+            CardSum += cardPack.GetCardValues()[this.cards[this.cards.Count - 1].getSymbol()];
+            cardDrawer.CreateDrawingForFrontSide(this.cards[this.cards.Count - 1].getSymbol());
             return cardPack;
         }
 
@@ -76,9 +77,9 @@ namespace Blackjack
         public virtual int CountAceCards()
         {
             int aceCards = 0;
-            foreach (char card in this.cards)
+            foreach (Card card in this.cards)
             {
-                if (card == 'A')
+                if (card.getSymbol() == 'A')
                 {
                     aceCards++;
                 }
