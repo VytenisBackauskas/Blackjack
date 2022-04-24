@@ -22,7 +22,7 @@ namespace Blackjack
         {
             this.cards.Add(cardPack.GetCards()[cardPicker.Next(0, cardPack.GetCards().Count)]);
             cardPack.GetCards().Remove(this.cards[this.cards.Count - 1]);
-            CardSum += cardPack.GetCardValues()[this.cards[this.cards.Count - 1].getSymbol()];
+            CardSum += cardPack.GetCardValues()[this.cards[this.cards.Count - 1].GetSymbol()];
             if(this.cards.Count == 2)
             {
                 cardDrawer.CreateDrawingForBackSide();

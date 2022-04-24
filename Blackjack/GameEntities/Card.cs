@@ -17,12 +17,12 @@ namespace Blackjack.GameEntities
             this.color = color;
         }
 
-        public char getSymbol()
+        public char GetSymbol()
         {
             return this.symbol;
         }
 
-        public char getColor()
+        public char GetColor()
         {
             return this.color;
         }

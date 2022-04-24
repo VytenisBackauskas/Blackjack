@@ -19,7 +19,7 @@ namespace Blackjack
 
         public void CreateDrawingForFrontSide(Card card)
         {
-            char cardIdentifier = card.getSymbol();
+            char cardIdentifier = card.GetSymbol();
             char[,] cardDrawing =
             {
                 {'\u250c', '\u2500', '\u2500', '\u2500', '\u2510'},
@@ -29,7 +29,7 @@ namespace Blackjack
                 {'\u2514', '\u2500', '\u2500', '\u2500', '\u2518'}
             };
             this.cardDrawings.Add(cardDrawing);
-            this.cardColors.Add(card.getColor());
+            this.cardColors.Add(card.GetColor());
         }
 
         public void CreateDrawingForBackSide()
@@ -52,10 +52,15 @@ namespace Blackjack
             {
                 for(int j = 0; j < cardDrawings.Count; j++)
                 {
-                    for(int k = 0; k < 5; k++)
+                    if (cardColors[j] == 'R')
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                    }
+                    for (int k = 0; k < 5; k++)
                     {
                         Console.Write(cardDrawings[j][i,k]);
                     }
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
                 Console.Write("\n");
             }
@@ -64,7 +69,7 @@ namespace Blackjack
 
         public void ChangeCardDrawing(int index, Card card)
         {
-            char cardIdentifier = card.getSymbol();
+            char cardIdentifier = card.GetSymbol();
             char[,] cardDrawing =
             {
                 {'\u250c', '\u2500', '\u2500', '\u2500', '\u2510'},
@@ -74,12 +79,17 @@ namespace Blackjack
                 {'\u2514', '\u2500', '\u2500', '\u2500', '\u2518'}
             };
             this.cardDrawings[index] = cardDrawing;
-            this.cardColors[index] = card.getColor();
+            this.cardColors[index] = card.GetColor();
         }
 
         public List<char[,]> GetCardDrawings()
         {
             return this.cardDrawings;
         }
+        public List<char> GetCardColors()
+        {
+            return this.cardColors;
+        }
+
     }
 }

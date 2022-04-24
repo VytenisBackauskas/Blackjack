@@ -31,7 +31,7 @@ namespace Blackjack
         {
             this.cards.Add(cardPack.GetCards()[cardPicker.Next(0, cardPack.GetCards().Count)]);
             cardPack.GetCards().Remove(this.cards[this.cards.Count - 1]);
-            CardSum += cardPack.GetCardValues()[this.cards[this.cards.Count - 1].getSymbol()];
+            CardSum += cardPack.GetCardValues()[this.cards[this.cards.Count - 1].GetSymbol()];
             cardDrawer.CreateDrawingForFrontSide(this.cards[this.cards.Count - 1]);
             return cardPack;
         }
@@ -79,7 +79,7 @@ namespace Blackjack
             int aceCards = 0;
             foreach (Card card in this.cards)
             {
-                if (card.getSymbol() == 'A')
+                if (card.GetSymbol() == 'A')
                 {
                     aceCards++;
                 }
